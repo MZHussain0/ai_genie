@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import { Button } from "./ui/button";
 import { Zap } from "lucide-react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 interface SubscriptionButtonProps {
   isPro: boolean;
@@ -16,6 +17,7 @@ const SubscriptionButton: FC<SubscriptionButtonProps> = ({ isPro = false }) => {
       const response = await axios.get("/api/stripe");
       window.location.href = response.data.url;
     } catch (error) {
+      toast.error("Something went wrong");
       console.log("Billing Error: ", error);
     } finally {
       setLoading(false);
